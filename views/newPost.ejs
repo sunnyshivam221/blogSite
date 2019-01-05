@@ -1,0 +1,19 @@
+<% include partials/header %>
+<h1>New Post</h1>
+<div>
+    <form method="POST" action="/blogs/addPost">
+        <div class="form-group">
+            <input type="text" name="title" placeholder="title">
+        </div>
+        <div class="form-group">
+            <input type="text" name="img" placeholder="img url">
+        </div>
+        <div class="form-group">
+            <input type="textarea" name="body" placeholder="body">
+        </div>
+        <button>Add Post</button>
+    </form>
+</div>
+
+
+<% include partials/footer %>
