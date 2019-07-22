@@ -1,14 +1,27 @@
 <% include partials/header %>
-<a href="./blogs/new">add new post</a>
-<h1>blogs</h1>
+<div class="BlogHeader">BLOGS</div>
 <%blogs.forEach(function(blog){%>
-    <div style="border: black 5px">
-        <h2><%=blog.title%></h2>
-        <!-- <h2><%=blog.image%></h2> -->
-        <p><%=blog.body%></p>
-        <p><%=blog.created%></p>
-        <a href='/blogs/<%=blog._id%>'>read more</a>
-    </div>
+   
+        <div class="row" >
+                <div class="blogBody col-lg-8 col-md-8 col-sm-8 col-xm-8 offset-lg-2 offset-md-2 offset-sm-2">
+                    <div class="row justify-content-center title">
+                            
+                                    <%=blog.title%>
+                           
+                    </div>
+                       
+                        <!-- <h2><%=blog.image%></h2> -->
+                        <p>
+                            <%=blog.body.substring(0,200)%><a href='/blogs/<%=blog._id%>'>read more</a>
+                        </p>
+                        <div class="date"><%=blog.Date%></div>
+                        <!-- <p><%=blog.created%></p> -->
+                
+                    </div>
+        </div>
+        
+  
+    
     
 <%})%>
 <% include partials/footer %>

@@ -1,19 +1,21 @@
 <% include partials/header %>
-<h1>New Post</h1>
-<div>
-    <form method="POST" action="/blogs/addPost">
-        <div class="form-group">
-            <input type="text" name="title" placeholder="title">
-        </div>
-        <div class="form-group">
-            <input type="text" name="img" placeholder="img url">
-        </div>
-        <div class="form-group">
-            <input type="textarea" name="body" placeholder="body">
-        </div>
-        <button>Add Post</button>
-    </form>
+
+<div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 offset-lg-3 offset-sm-3 offset-md-3">
+                <form method="POST" action="/blogs/addPost">
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input class="form-control"type="text" name="title" required>
+                    </div>
+                    <div class="form-group green-border-focus">
+                        <label>Write Here</label>
+                        <textarea class="form-control"type="textarea" name="body"rows="7" requ></textarea>
+                    </div>
+                    <button class="form-control btn btn-primary">Add Post</button>
+                </form>
+            </div>
 </div>
+
 
 
 <% include partials/footer %>
