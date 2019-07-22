@@ -1,28 +1,19 @@
 const express=require('express');
 const app=express();
 const bodyparser=require('body-parser');
+const path=require('path')
+const methodOverride=require('method-override')
+
 const mongoose=require('mongoose');
-mongoose.connect("mongodb://localhost/blogSite_db");
+mongoose.connect("mongodb://localhost/blogSite_db",
+{ useNewUrlParser: true });
 const blog=require('./models/blogs')
+const Comment=require('./models/comment')
 
 app.set("view engine","ejs");
 app.use(bodyparser.urlencoded({extended:true}));
-app.use(express.static("public"))
-
-
-
-// blog.create({
-//     title:"date",
-//     image:"--------------",
-//     body:"date property get updated by shivam kumar!"
-// },(err,data)=>{
-//     if(err){
-//         console.log(error)
-//     }else{
-//         console.log("blog added succesfully")
-//         console.log(data)
-//     }
-// })
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(methodOverride('_method'))
 
 app.get('/',(req,res)=>{
     res.redirect('/blogs')
@@ -37,17 +28,19 @@ app.get('/blogs',(req,res)=>{
     })
    
 })
+
+//blogs route
 app.get('/blogs/new',(req,res)=>{
     res.render('newPost')
 })
 app.post('/blogs/addPost',(req,res)=>{
     var title=req.body.title;
-    var img=req.body.img;
     var body=req.body.body;
+    var datetime=new Date();
 
     blog.create({
         title:title,
-        img:img,
+        Date:datetime.toISOString().slice(0,10),
         body:body
     },(err,data)=>{
         if(err){
@@ -57,9 +50,9 @@ app.post('/blogs/addPost',(req,res)=>{
         }
     })
 })
-
+//show route 
 app.get('/blogs/:id',(req,res)=>{
-    blog.findById(req.params.id,(err,findBlog)=>{
+    blog.findById(req.params.id).populate('comments').exec((err,findBlog)=>{
         if(err){
             res.redirect('blogs')
         }else{
@@ -67,6 +60,58 @@ app.get('/blogs/:id',(req,res)=>{
         }
     })
 })
+
+//edit route
+app.get('/blogs/:id/edit',(req,res)=>{
+     blog.findById(req.params.id,(err,foundBlog)=>{
+         if(err){
+             res.redirect('/');
+         }else{
+             res.render('edit',{blog:foundBlog})
+         }
+     })
+})
+
+//update route
+app.put('/blogs/:id',(req,res)=>{
+    
+})
+
+//Comment Route
+app.get('/blogs/:id/comments/new',(req,res)=>{
+    blog.findById(req.params.id,(err,data)=>{
+        if(err){
+            console.log(err)
+        }else{
+            res.render('newComment',{blogs:data});
+        }
+    })
+    
+})
+
+app.post('/blogs/:id/comments',(req,res)=>{
+    // console.log(req.body.params)
+    blog.findById(req.params.id,(err,blogData)=>{
+        if(err){
+            console.log(err)
+            res.redirect('/')
+        }else{
+            Comment.create({
+                comment:req.body.comment,
+                author:req.body.author
+            },(err,data)=>{
+                if(err){
+                    console.log(err)
+                }else{
+                    blogData.comments.push(data);
+                    blogData.save();
+                    res.redirect('/blogs/'+blogData._id);
+                }
+            })
+        }
+    })
+})
+
 
 app.listen(4000,(err)=>{
     if(err){
