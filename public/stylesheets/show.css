@@ -1,0 +1,33 @@
+.sbody{
+    background-color: lightgrey;
+    border-radius:5px;
+    padding: 5px;
+}
+.title{
+    font-size: large;
+    font-stretch: expanded
+}
+.comment{
+    margin-top: 4px;
+    background-color: rgb(230, 224, 224);
+    border-radius:5px;
+    padding: 5px;
+}
+.commentAuthor{
+    color:green;
+}
+.CommentHeader{
+    margin-top:10px;
+    font-weight: 700;
+    font-size: 20px;
+    color:darkgreen;
+}
+.AddCommentHeader{
+    margin-top: 10px;
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-bottom: 10px
+}
+.AddCommentHeader strong{
+    color: red;
+}

@@ -1,0 +1,30 @@
+.blogBody{
+    border: .5px solid black;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+/* body{
+    padding:0;
+}
+html{
+    margin: 0;
+} */
+.date{
+    color:green;
+    position: absolute;
+    top:1px;
+    right:3px;
+}
+.title{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.add-comment-title{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-bottom:10px;
+}
+.BlogHeader{
+    text-align: center;
+    font-weight: 1000;
+    font-size: 50px;
+    color:red;
+}
